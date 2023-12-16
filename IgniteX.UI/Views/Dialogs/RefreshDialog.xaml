@@ -1,0 +1,125 @@
+﻿<UserControl
+    x:Class="IgniteX.UI.Views.Dialogs.RefreshDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:IgniteX.UI.Views.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:settings="clr-namespace:IgniteX.Shared.Properties;assembly=IgniteX.Shared"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="ellipse" TargetType="Ellipse">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Fill" Value="#41b6e6" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform X="0" Y="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <PowerEase
+            x:Key="powerEase"
+            EasingMode="EaseInOut"
+            Power="2" />
+    </UserControl.Resources>
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+            <Setter Property="ShowInTaskbar" Value="False" />
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+            <Setter Property="WindowStyle" Value="None" />
+            <Setter Property="AllowsTransparency" Value="False" />
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <Canvas
+        Width="200"
+        Height="200"
+        Background="White">
+        <Canvas.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard RepeatBehavior="Forever" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+                        <DoubleAnimation
+                            AutoReverse="True"
+                            BeginTime="0:0:0.0"
+                            EasingFunction="{StaticResource powerEase}"
+                            Storyboard.TargetName="e1"
+                            To="-50"
+                            Duration="0:0:0.5" />
+                        <DoubleAnimation
+                            AutoReverse="True"
+                            BeginTime="0:0:0.1"
+                            EasingFunction="{StaticResource powerEase}"
+                            Storyboard.TargetName="e2"
+                            To="-50"
+                            Duration="0:0:0.5" />
+                        <DoubleAnimation
+                            AutoReverse="True"
+                            BeginTime="0:0:0.2"
+                            EasingFunction="{StaticResource powerEase}"
+                            Storyboard.TargetName="e3"
+                            To="-50"
+                            Duration="0:0:0.5" />
+                        <DoubleAnimation
+                            AutoReverse="True"
+                            BeginTime="0:0:0.3"
+                            EasingFunction="{StaticResource powerEase}"
+                            Storyboard.TargetName="e4"
+                            To="-50"
+                            Duration="0:0:0.5" />
+                        <DoubleAnimation
+                            AutoReverse="True"
+                            BeginTime="0:0:0.4"
+                            EasingFunction="{StaticResource powerEase}"
+                            Storyboard.TargetName="e5"
+                            To="-50"
+                            Duration="0:0:0.5" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Canvas.Triggers>
+
+
+        <Label
+            Canvas.Top="100"
+            Width="200"
+            HorizontalContentAlignment="Center"
+            Content="Loading"
+            FontFamily="Times New Roman"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="#ffb549" />
+
+        <Ellipse
+            Name="e1"
+            Canvas.Left="30"
+            Canvas.Top="80"
+            Style="{StaticResource ellipse}" />
+        <Ellipse
+            Name="e2"
+            Canvas.Left="60"
+            Canvas.Top="80"
+            Style="{StaticResource ellipse}" />
+        <Ellipse
+            Name="e3"
+            Canvas.Left="90"
+            Canvas.Top="80"
+            Style="{StaticResource ellipse}" />
+        <Ellipse
+            Name="e4"
+            Canvas.Left="120"
+            Canvas.Top="80"
+            Style="{StaticResource ellipse}" />
+        <Ellipse
+            Name="e5"
+            Canvas.Left="150"
+            Canvas.Top="80"
+            Style="{StaticResource ellipse}" />
+    </Canvas>
+
+
+</UserControl>

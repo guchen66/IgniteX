@@ -1,0 +1,51 @@
+﻿<UserControl
+    x:Class="IgniteX.UI.Views.Dialogs.ExcelDownDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:IgniteX.UI.ViewModels.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+            <Setter Property="ShowInTaskbar" Value="False" />
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+            <Setter Property="WindowStyle" Value="None" />
+
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <Border Background="AliceBlue" Width="260">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Margin="20 30 "
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <TextBlock FontSize="16" Text="是否下载Excel文件到桌面？" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Width="80"
+                    Margin="10 10 10 30"
+                    Command="{Binding ConfirmCommand}"
+                    Content="确认" Style="{StaticResource MaterialDesignFlatDarkBgButton}"/>
+                <Button
+                    Width="80"
+                    Margin="10 10 10 30"
+                    Command="{Binding CancelCommand}" Style="{StaticResource MaterialDesignPaperButton}"
+                    Content="取消"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

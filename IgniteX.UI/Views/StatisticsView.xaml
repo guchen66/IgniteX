@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="IgniteX.UI.Views.StatisticsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:excel="clr-namespace:IgniteX.Shared.Extensions;assembly=IgniteX.Shared"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    d:DesignHeight="450"
+    d:DesignWidth="980"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="AliceBlue"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/DataGridDataCenterStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="AliceBlue">
+
+        <DataGrid
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            AutoGenerateColumns="False"
+            ColumnWidth="*"
+            IsReadOnly="True"
+            ItemsSource="{Binding Data}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding Id}"
+                    ElementStyle="{Binding Source={StaticResource CenterStyle}}"
+                    Header="组件"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+                <DataGridTextColumn
+                    Binding="{Binding Result.Avg}"
+                    ElementStyle="{StaticResource CenterStyle}"
+                    Header="平均值"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+                <DataGridTextColumn
+                    Binding="{Binding Result.Max}"
+                    ElementStyle="{StaticResource CenterStyle}"
+                    Header="最大值"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+                <DataGridTextColumn
+                    Binding="{Binding Result.Min}"
+                    ElementStyle="{StaticResource CenterStyle}"
+                    Header="最小值"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+                <DataGridTextColumn
+                    Binding="{Binding Result.StandarDeviation}"
+                    ElementStyle="{StaticResource CenterStyle}"
+                    Header="标准偏差"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+                <DataGridTextColumn
+                    Binding="{Binding Result.Cp}"
+                    ElementStyle="{StaticResource CenterStyle}"
+                    Header="Cp"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+
+
+                <DataGridTextColumn
+                    Binding="{Binding Result.Cpk}"
+                    ElementStyle="{StaticResource CenterStyle}"
+                    Header="Cpk"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+                <DataGridTextColumn
+                    Binding="{Binding CreateTime, StringFormat='yyyy/MM/dd'}"
+                    ElementStyle="{StaticResource CenterStyle}"
+                    Header="创建日期"
+                    HeaderStyle="{StaticResource CenteredHeaderStyle}" />
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>
+

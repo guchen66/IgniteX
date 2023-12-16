@@ -1,0 +1,271 @@
+﻿<Window
+    x:Class="IgniteX.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:IgniteX.Views"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:region="clr-namespace:IgniteX.Shared;assembly=IgniteX.Shared"
+    xmlns:settings="clr-namespace:IgniteX.Shared.Properties;assembly=IgniteX.Shared"
+    xmlns:textString="clr-namespace:IgniteX.Shared.Common;assembly=IgniteX.Shared"
+    Title="{Binding appData.SystemName}"
+    Width="{Binding Path=MainWindowWidth, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
+    Height="{Binding Path=MainWindowHeight, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    AllowsTransparency="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <!--  Window的Icon  -->
+    <Window.Icon>
+        <BitmapImage x:Name="loginIcon" UriSource="/favicon.ico" />
+    </Window.Icon>
+    <Window.Resources>
+        <ObjectDataProvider
+            x:Key="CurrentTime"
+            MethodName="ShowCurrentTime"
+            ObjectType="{x:Type textString:TextString}" />
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border Panel.ZIndex="1" Background="#fff">
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="20"
+                    Opacity="0.1"
+                    ShadowDepth="10"
+                    Color="#848484" />
+            </Border.Effect>
+        </Border>
+        <!--  左侧菜单  -->
+        <Grid Panel.ZIndex="1">
+            <Grid.Background>
+                <ImageBrush
+                    ImageSource="../Assets/Images/雪花.jpeg"
+                    Opacity="0.2"
+                    Stretch="Fill" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding DragMoveCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="22"
+                FontWeight="Light"
+                Text="{Binding appData.SystemName}" />
+            <Border
+                x:Name="Border_Btn"
+                BorderBrush="DarkGray"
+                BorderThickness="0,0,0,1" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+                <Button
+                    Width="220"
+                    Height="50"
+                    Command="{Binding NavicateCommand}"
+                    CommandParameter="首页"
+                    Foreground="Black"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="-70,0,0,0"
+                                FontFamily="../Assets/Fonts/#iconfont"
+                                FontSize="22"
+                                Foreground="Black"
+                                Text="&#xe64f;" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="首页" />
+                        </StackPanel>
+                    </Button.Content>
+
+                </Button>
+            </StackPanel>
+
+            <!--  左侧使用ListBox  -->
+            <StackPanel Grid.Row="2">
+                <ListView
+                    HorizontalContentAlignment="Stretch"
+                    ItemContainerStyle="{StaticResource myListBoxItemStyle}"
+                    ItemsSource="{Binding appData.Datas}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1,1,0,0">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Opacity="0.2" Color="Gray" />
+                                </Border.BorderBrush>
+
+                                <Expander HorizontalContentAlignment="Stretch" Background="{x:Null}">
+                                    <Expander.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Margin="0,0,35,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontFamily="../Assets/Fonts/#iconfont"
+                                                FontSize="22"
+                                                Text="{Binding IconKind}" />
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Text="{Binding Title}" />
+                                        </StackPanel>
+                                    </Expander.Header>
+                                    <Expander.Content>
+                                        <ItemsControl ItemsSource="{Binding SubName}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Height="50"
+                                                        Command="{Binding DataContext.NavicateCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                        CommandParameter="{Binding SubTitle}"
+                                                        Content="{Binding SubTitle}"
+                                                        Foreground="Black"
+                                                        Style="{StaticResource MaterialDesignFlatButton}" />
+                                                    <!--  Style="{StaticResource MaterialDesignFlatDarkBgButton}"  -->
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Expander.Content>
+                                </Expander>
+                            </Border>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+        <!--  右侧  -->
+
+        <Grid Grid.Column="1" MouseDown="Grid_MouseDown">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+            <!--  Header  -->
+            <Grid >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding DragMoveCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid.Background>
+                    <ImageBrush
+                        ImageSource="../Assets/Images/雪花.jpeg"
+                        Opacity="0.2"
+                        Stretch="Fill" />
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto   " />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Margin="50,0,0,0"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Width="200"
+                        Margin="0,0,50,0"
+                        DisplayMemberPath="OrderName"
+                        FontSize="16"
+                        TextBlock.TextAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Text="{Binding OrderNumber}"
+                        ItemsSource="{Binding appData.OrderInfos, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="OrderName" />
+                    <Button Width="100" Content="订单下发" Command="{Binding IssuedOrderCmd}"/>
+                    <StackPanel
+                        Margin="20"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        TextBlock.TextAlignment="Right">
+                        <TextBlock
+                            Name="lblDate"
+                            Width="250"
+                            FontSize="22"
+                            Foreground="Blue" />
+                        <TextBlock
+                            Name="lblTime"
+                            Width="100"
+                            Margin="0,0,20,0"
+                            FontSize="22"
+                            Foreground="Blue" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="btnMin"
+                        Background="{x:Null}"
+                        Content="—"
+                        FontSize="14"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                    <Button
+                        x:Name="btnMax"
+                        Background="{x:Null}"
+                        Content="☐"
+                        Cursor="Hand"
+                        FontSize="14"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                    <Button
+                        x:Name="btnClose"
+                        Background="{x:Null}"
+                        Command="{Binding CloseCommand}"
+                        Content="✕"
+                        Cursor="Hand"
+                        FontSize="14"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                </StackPanel>
+
+
+            </Grid>
+
+            <!--  ContentView  -->
+            <Border BorderBrush="DarkGray" BorderThickness="0,0,0,1" />
+
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static region:RegionNames.ContentRegion}" />
+
+
+            <ContentControl Grid.Row="2" prism:RegionManager.RegionName="{x:Static region:RegionNames.FooterRegion}" />
+
+            <Border
+                Grid.Row="2"
+                BorderBrush="DarkGray"
+                BorderThickness="0,1,0,0" />
+        </Grid>
+    </Grid>
+
+</Window>

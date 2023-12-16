@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Images\下载失败.png" />
+    <None Remove="Images\已完成.png" />
+    <None Remove="Images\提示.png" />
+    <None Remove="Images\警告.png" />
+    <None Remove="Images\通知公告.png" />
+    <None Remove="Images\雪花.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MaterialDesign.Avalonia.PackIcon" Version="1.25.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="NPOI" Version="2.6.2" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IgniteX.Shared\IgniteX.Shared.csproj" />
+    <ProjectReference Include="..\SqlSugarDB\SqlSugarDB.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\下载失败.png" />
+    <Resource Include="Images\已完成.png" />
+    <Resource Include="Images\提示.png" />
+    <Resource Include="Images\警告.png" />
+    <Resource Include="Images\通知公告.png" />
+    <Resource Include="Images\雪花.jpeg" />
+  </ItemGroup>
+</Project>
